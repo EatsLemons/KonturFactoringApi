@@ -6,6 +6,10 @@
     <Version>0.0.1</Version>
     <Authors>EatsLemons</Authors>
     <Company>EatsLemons</Company>
+    <PackageProjectUrl>https://github.com/EatsLemons/KonturFactoringApi</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/EatsLemons/KonturFactoringApi/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/EatsLemons/KonturFactoringApi</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
