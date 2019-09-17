@@ -10,18 +10,15 @@ namespace KonturFactoring.Api
     /// <summary>
     /// KonturFactoringHttpClientRaw provide raw requests to kontur factoring without any logic
     /// </summary>
-    public class KonturFactoringHttpClientRaw
+    public class KonturFactoringHttpClient
     {
         private readonly HttpClient _http;
 
         private const string KONTUR_FACTORING_URL = "https://factoring-api.kontur.ru";
 
-        public KonturFactoringHttpClientRaw(HttpClient httpClient)
+        public KonturFactoringHttpClient(HttpClient httpClient)
         {
-            if (httpClient == null)
-                httpClient = new HttpClient();
-
-            _http = httpClient;
+            _http = httpClient ?? new HttpClient();
         }
 
         public async Task<(AuthResponse, ErrorResponse)> AuthAsync(string login, string password)
@@ -46,5 +43,7 @@ namespace KonturFactoring.Api
                 return (null, errorResponse);
             }
         }
+        
+        //public async Task<>
     }
 }

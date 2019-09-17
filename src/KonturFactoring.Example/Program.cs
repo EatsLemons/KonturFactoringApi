@@ -9,7 +9,7 @@ namespace KonturFactoring.Example
         {
             Console.WriteLine("Hello World!");
 
-            var client = new KonturFactoringHttpClientRaw(null);
+            var client = new KonturFactoringHttpClient(null);
 
             (var auth, var error) = client.AuthAsync("testlogin", "testpassword").Result;
 
