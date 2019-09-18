@@ -13,9 +13,17 @@ namespace KonturFactoring.Api.Models
         public int Count { get; set; }
 
         [JsonProperty("fromDate")]
-        public DateTime? FromDate { get; set; }
+        public DateTime FromDate { get; set; }
 
         [JsonProperty("organizationIds")]
         public List<int> OrganizationsIds { get; set; }
+
+        public DocumentsRequest(int afterKey, int count, DateTime fromDate, List<int> organizationsIds)
+        {
+            AfterKey = afterKey;
+            Count = count;
+            FromDate = fromDate;
+            OrganizationsIds = organizationsIds;
+        }
     }
 }
