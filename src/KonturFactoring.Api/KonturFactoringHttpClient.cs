@@ -28,33 +28,22 @@ namespace KonturFactoring.Api
             if (password == null) throw new ArgumentNullException("password");
 
             var request = new HttpRequestMessage(HttpMethod.Post, KONTUR_FACTORING_URL + "/v2/auth");
+            var requestBody = new AuthRequest(login, password);
 
-            using (var stringContent = new StringContent(JsonConvert.SerializeObject(new AuthRequest(login, password)), Encoding.UTF8, "application/json"))
-            {
-                request.Content = stringContent;
-                HttpResponseMessage response = await _http.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(await response.Content.ReadAsStringAsync());
-                    return (authResponse, null);
-                }
-                
-                ErrorResponse errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(await response.Content.ReadAsStringAsync());
-                return (null, errorResponse);
-            }
+            return await MakeRequest<AuthResponse, ErrorResponse>(request, requestBody);
         }
 
-        public async Task<(List<DocumentsResponse>, ErrorResponse)> GetDocumentsAsync(DateTime fromDate, int organizationId, int afterKey)
+        public async Task<(List<DocumentsResponse>, ErrorResponse)> GetDocumentsAsync(string token, DateTime fromDate, int organizationId, long afterKey, int count)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, KONTUR_FACTORING_URL + "/v2/documents");
-            var requestBody = new DocumentsRequest(afterKey, 500, fromDate, new List<int> {organizationId});
+            request.Headers.Add("Authorization", $"Bearer {token}");
+            var requestBody = new DocumentsRequest(afterKey, count, fromDate, new List<int> {organizationId});
 
             return await MakeRequest<List<DocumentsResponse>, ErrorResponse>(request, requestBody);
         }
 
         private async Task<(TResponse, TError)> MakeRequest<TResponse, TError>(HttpRequestMessage request, object requestBody)
-            where TResponse : class where TError : class 
+            where TResponse : class where TError : class
         {
             using (var stringContent = new StringContent(JsonConvert.SerializeObject(requestBody),
                 Encoding.UTF8, "application/json"))

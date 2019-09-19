@@ -1,4 +1,5 @@
 using System;
+using KonturFactoring.Api.Models.JsonConverters;
 using Newtonsoft.Json;
 
 namespace KonturFactoring.Api.Models
@@ -21,7 +22,8 @@ namespace KonturFactoring.Api.Models
         public string Number { get; set; }
 
         [JsonProperty("date")]
-        public DateTime Date { get; set; }
+        [JsonConverterAttribute(typeof(CustomDateTimeConverter), "dd.MM.yyyy")]
+        public DateTime? Date { get; set; }
         
         [JsonProperty("totalSumWithVat")]
         public decimal TotalSumWithVat { get; set; }
@@ -54,28 +56,29 @@ namespace KonturFactoring.Api.Models
         public bool Confirmed { get; set; }
 
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         [JsonProperty("delayStartDate")]
-        public DateTime DelayStartDate { get; set; }
+        public DateTime? DelayStartDate { get; set; }
     }
 
     public class Relations
     {
-        [JsonProperty("organizationIds")]
+        [JsonProperty("deliveryAgreement")]
         public RelationDocument DeliveryAgreement { get; set; }
 
-        [JsonProperty("organizationIds")]
+        [JsonProperty("factoringAgreement")]
         public RelationDocument FactoringAgreement { get; set; }
 
-        [JsonProperty("organizationIds")]
+        [JsonProperty("baseDocument")]
         public RelationDocument BaseDocument { get; set; }
     }
 
     public class RelationDocument
     {
         [JsonProperty("date")]
-        public DateTime Date { get; set; }
+        [JsonConverterAttribute(typeof(CustomDateTimeConverter), "dd.MM.yyyy")]
+        public DateTime? Date { get; set; }
 
         [JsonProperty("number")]
         public string Number { get; set; }

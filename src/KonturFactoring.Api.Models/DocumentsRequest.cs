@@ -7,7 +7,7 @@ namespace KonturFactoring.Api.Models
     public class DocumentsRequest
     {
         [JsonProperty("afterKey")]
-        public int AfterKey { get; set; }
+        public long AfterKey { get; set; }
 
         [JsonProperty("count")]
         public int Count { get; set; }
@@ -18,7 +18,7 @@ namespace KonturFactoring.Api.Models
         [JsonProperty("organizationIds")]
         public List<int> OrganizationsIds { get; set; }
 
-        public DocumentsRequest(int afterKey, int count, DateTime fromDate, List<int> organizationsIds)
+        public DocumentsRequest(long afterKey, int count, DateTime fromDate, List<int> organizationsIds)
         {
             AfterKey = afterKey;
             Count = count;
