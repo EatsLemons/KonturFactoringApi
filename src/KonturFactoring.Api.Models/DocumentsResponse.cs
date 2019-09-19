@@ -59,6 +59,7 @@ namespace KonturFactoring.Api.Models
         public decimal? Amount { get; set; }
 
         [JsonProperty("delayStartDate")]
+        [JsonConverterAttribute(typeof(CustomDateTimeConverter), "dd.MM.yyyy")]
         public DateTime? DelayStartDate { get; set; }
     }
 
